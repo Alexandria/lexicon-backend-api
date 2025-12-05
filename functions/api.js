@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { randomUUID } from "crypto";
+import serverless from "serverless-http";
 
 const tokenStore = new Map();
 const app = express();
@@ -71,6 +72,4 @@ app.get("/api/v1/tokens/:id", () => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`running at http://localhost:${PORT}`);
-});
+export const handler = serverless(app);
