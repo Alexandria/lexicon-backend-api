@@ -1,17 +1,18 @@
 import express from "express";
 import cors from "cors";
 import { randomUUID } from "crypto";
-import serverless from "serverless-http";
+import ServerlessHttp from "serverless-http";
 
 const tokenStore = new Map();
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// CORS
+// CORS;
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:5173",
-  "https://lexicon-iframe.netlify.app", // production
+  "https://lexicon-iframe.netlify.app",
+  "https://jf-iframe-web-component.netlify.app",
 ];
 
 const corsOptions = {
@@ -28,7 +29,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.post("/api/v1/submit", (req, res) => {
+app.get("/.netlify/functions/api", (req, res) => {
+  return res.json({
+    message: "hello world",
+  });
+});
+
+app.post("/.netlify/functions/api/v1/submit", (req, res) => {
   const { cardNumber, cvv } = req.body;
 
   // Simulate Tokenization with third party payment processor
@@ -57,7 +64,7 @@ app.post("/api/v1/submit", (req, res) => {
   }, 1000);
 });
 
-app.get("/api/v1/tokens/:id", () => {
+app.get("/.netlify/functions/api/v1/tokens/:id", () => {
   const token = req.params.token;
 
   if (tokenStore.has(token)) {
@@ -72,4 +79,9 @@ app.get("/api/v1/tokens/:id", () => {
   }
 });
 
-export const handler = serverless(app);
+const serverlessHandler = ServerlessHttp(app);
+
+export const handler = async (event, context) => {
+  const result = await serverlessHandler(event, context);
+  return result;
+};
