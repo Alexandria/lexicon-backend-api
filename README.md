@@ -1,4 +1,4 @@
-💳 Lexicon Backend API (Serverless Function)
+# 💳 Lexicon Backend API (Serverless Function)
 
 #### Deployment
 
