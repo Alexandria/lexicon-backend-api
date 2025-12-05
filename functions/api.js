@@ -9,8 +9,6 @@ const PORT = process.env.PORT || 4000;
 
 // CORS;
 const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:5173",
   "https://lexicon-iframe.netlify.app",
   "https://jf-iframe-web-component.netlify.app",
 ];
