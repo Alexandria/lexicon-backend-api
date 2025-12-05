@@ -1,16 +1,7 @@
-# Headers
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Content-Security-Policy = "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-ancestors 'self' http://localhost:3000 lexicon-iframe.netlify.app;"
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
 
-# Headers for your specific CSS file (CORS)
-[[headers]]
-  for = "/style.css" 
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
+[functions]
+  node_bundler = "esbuild"
