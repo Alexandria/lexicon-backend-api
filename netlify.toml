@@ -3,5 +3,5 @@
   to = "/.netlify/functions/api/:splat"
   status = 200
 
-[functions]
-  node_bundler = "esbuild"
+[build]
+  functions = "functions"
